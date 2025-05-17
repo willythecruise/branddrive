@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 import {
   HomeIcon,
@@ -37,10 +37,24 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const { logout, user } = useAuth();
+
+  // Set sidebar state based on screen size
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSidebarOpen(window.innerWidth >= 1024); // lg breakpoint
+    };
+
+    // Set initial state
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const handleStart = () => setIsLoading(true);
@@ -55,6 +69,11 @@ export default function DashboardLayout({
     };
   }, []);
 
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Loading Overlay */}
@@ -64,7 +83,7 @@ export default function DashboardLayout({
       <div
         className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        } lg:translate-x-0`}
       >
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}
@@ -72,7 +91,7 @@ export default function DashboardLayout({
             <h1 className="text-xl font-bold text-gray-900">BrandDrive</h1>
             <button
               onClick={() => setIsSidebarOpen(false)}
-              className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 lg:hidden"
             >
               <XMarkIcon className="h-6 w-6" />
             </button>
@@ -118,7 +137,7 @@ export default function DashboardLayout({
                 </div>
               </div>
               <button
-                onClick={logout}
+                onClick={handleLogout}
                 className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                 title="Sign out"
               >
@@ -133,14 +152,14 @@ export default function DashboardLayout({
       <div
         className={`transition-all duration-300 ease-in-out ${
           isSidebarOpen ? 'pl-64' : 'pl-0'
-        }`}
+        } lg:pl-64`}
       >
         {/* Top Bar */}
         <div className="sticky top-0 z-40 bg-white shadow-sm">
           <div className="flex items-center justify-between h-16 px-4">
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 lg:hidden"
             >
               <Bars3Icon className="h-6 w-6" />
             </button>
