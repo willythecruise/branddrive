@@ -40,8 +40,8 @@ export default function Home() {
               <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">BrandDrive BI</span>
             </div>
             <div className="flex items-center space-x-6">
-              <Link href="/about" className="text-gray-600 hover:text-indigo-600 transition-colors">About</Link>
-              <Link href="/contact" className="text-gray-600 hover:text-indigo-600 transition-colors">Contact</Link>
+              <Link href="#" className="text-gray-600 hover:text-indigo-600 transition-colors">About</Link>
+              <Link href="#" className="text-gray-600 hover:text-indigo-600 transition-colors">Contact</Link>
               <Link 
                 href="/login" 
                 className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
