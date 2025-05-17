@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BrandDrive BI - Business Intelligence Dashboard
+
+A modern, responsive Business Intelligence dashboard built with Next.js, featuring user authentication, data visualization, and real-time metrics.
+
+## Features
+
+- 🔐 User Authentication
+  - Login with email and password
+  - Registration with form validation
+  - Auto-logout after 1 minute of inactivity (configurable)
+  - "Keep me logged in" option
+
+- 📊 Dashboard
+  - Key metrics display
+  - Interactive charts and graphs
+  - Sortable and filterable data tables
+  - Responsive design
+
+- 🛠️ Technical Stack
+  - Next.js 14 with App Router
+  - TypeScript
+  - Tailwind CSS for styling
+  - Chart.js for data visualization
+  - MSW for API mocking
+  - React Hook Form for form handling
+  - Zod for validation
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd branddrive
+   ```
 
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Mock API
 
-## Learn More
+The application uses MSW (Mock Service Worker) to simulate API endpoints. The mock handlers are located in `mocks/handlers.ts`. You can modify these handlers to test different scenarios.
 
-To learn more about Next.js, take a look at the following resources:
+### Authentication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The authentication system is implemented using React Context and localStorage. In a production environment, you should:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Replace the mock API calls with real backend endpoints
+2. Implement proper session management
+3. Add CSRF protection
+4. Use secure HTTP-only cookies for authentication
 
-## Deploy on Vercel
+### Styling
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The application uses Tailwind CSS for styling. You can customize the theme in `tailwind.config.js`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+branddrive/
+├── app/                    # Next.js app directory
+│   ├── dashboard/         # Dashboard page
+│   ├── login/            # Login page
+│   ├── register/         # Registration page
+│   └── layout.tsx        # Root layout
+├── components/           # Reusable components
+├── lib/                 # Utility functions and hooks
+├── mocks/              # Mock API handlers
+└── public/            # Static assets
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
